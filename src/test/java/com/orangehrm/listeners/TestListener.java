@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
+
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
@@ -16,9 +17,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * TestNG Listener for execution lifecycle logging and automatic screenshot capture on failure.
- */
 public class TestListener implements ITestListener {
     private static final Logger log = LogManager.getLogger(TestListener.class);
 

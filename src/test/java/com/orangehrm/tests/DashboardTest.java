@@ -4,11 +4,9 @@ import com.orangehrm.pages.DashboardPage;
 import com.orangehrm.pages.LoginPage;
 import com.orangehrm.utils.ConfigReader;
 import org.testng.Assert;
+
 import org.testng.annotations.Test;
 
-/**
- * Test cases for OrangeHRM Dashboard functionality.
- */
 public class DashboardTest extends BaseTest {
 
     @Test(description = "Verify key components are displayed on the Dashboard after login")

@@ -12,10 +12,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 
-/**
- * DriverFactory manages WebDriver instances using ThreadLocal for thread safety.
- * Selenium 4's built-in Selenium Manager automatically handles browser drivers.
- */
 public class DriverFactory {
     private static final Logger log = LogManager.getLogger(DriverFactory.class);
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
@@ -85,9 +81,6 @@ public class DriverFactory {
         return driverThreadLocal.get();
     }
 
-    /**
-     * Quits the current thread's WebDriver and removes it from ThreadLocal.
-     */
     public static void quitDriver() {
         WebDriver driver = driverThreadLocal.get();
         if (driver != null) {

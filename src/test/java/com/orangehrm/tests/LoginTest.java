@@ -6,9 +6,7 @@ import com.orangehrm.utils.ConfigReader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-/**
- * Test cases for OrangeHRM Login functionality.
- */
+
 public class LoginTest extends BaseTest {
 
     @Test(description = "Verify successful login with valid credentials redirects to Dashboard")
@@ -35,7 +33,7 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
 
         log.info("Attempting login with invalid credentials");
-        loginPage.login("wrongUser", "wrongPass123");
+        loginPage.login("Megatron", "patata123");
 
         log.info("Verifying error message is displayed");
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(), "Error message should be displayed for invalid credentials");
