@@ -175,13 +175,6 @@ La configuración del pipeline se define en el archivo **`.github/workflows/mave
     - Se ejecutan los casos de prueba automatizados.
     - Los resultados se recopilan y se generan los reportes correspondientes.
 
-- **Gestión de Secretos:**
-  - Las credenciales sensibles (URL base, usuario y contraseña) no se almacenan directamente en el código fuente. En su lugar, se configuran como variables de entorno (`env`) dentro de GitHub Secrets:
-    - `secrets.BASE_URL`
-    - `secrets.DEFAULT_USERNAME`
-    - `secrets.DEFAULT_PASSWORD`
-  - Este enfoque protege la información sensible y permite gestionar las credenciales de manera centralizada y segura.
-
 - **Recolección de Artefactos:**
   - Al finalizar la ejecución, independientemente de si las pruebas fueron exitosas o fallidas (`if: always()`), se recolectan y almacenan los siguientes artefactos:
     - **Logs de ejecución:** Incluyen el detalle de cada paso, los resultados de las pruebas y cualquier mensaje de error o advertencia (`logs/`).
