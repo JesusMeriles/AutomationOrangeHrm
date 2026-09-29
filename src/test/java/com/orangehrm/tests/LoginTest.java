@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-    @Test(description = "Verify successful login with valid credentials redirects to Dashboard")
+    @Test(description = "CP-LOGIN-POS-01: Verify successful login with valid credentials redirects to Dashboard")
     public void testSuccessfulLogin() {
         LoginPage loginPage = new LoginPage(driver);
 
@@ -28,7 +28,7 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(dashboardPage.getCurrentUrl().contains("dashboard"), "URL should contain 'dashboard'");
     }
 
-    @Test(description = "Verify invalid credentials display an error alert")
+    @Test(description = "CP-LOGIN-NEG-01: Verify invalid credentials display an error alert")
     public void testInvalidLoginCredentials() {
         LoginPage loginPage = new LoginPage(driver);
 
@@ -40,7 +40,7 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials", "Error text should match expected message");
     }
 
-    @Test(description = "Verify user can log out successfully back to login screen")
+    @Test(description = "CP-LOGIN-POS-02: Verify user can log out successfully back to login screen")
     public void testSuccessfulLogout() {
         LoginPage loginPage = new LoginPage(driver);
 

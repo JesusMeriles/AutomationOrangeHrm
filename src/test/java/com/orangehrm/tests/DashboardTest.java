@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class DashboardTest extends BaseTest {
 
-    @Test(description = "Verify key components are displayed on the Dashboard after login")
+    @Test(description = "CP-DASH-POS-01: Verify key components are displayed on the Dashboard after login")
     public void testDashboardComponents() {
         LoginPage loginPage = new LoginPage(driver);
 

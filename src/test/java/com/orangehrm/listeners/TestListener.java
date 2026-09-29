@@ -5,16 +5,16 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
-
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+
+
 import java.util.Date;
 
 public class TestListener implements ITestListener {
@@ -71,6 +71,9 @@ public class TestListener implements ITestListener {
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String destPath = "screenshots/" + testName + "_" + timestamp + ".png";
             File destination = new File(destPath);
+            if (destination.getParentFile() != null) {
+                destination.getParentFile().mkdirs();
+            }
             FileUtils.copyFile(source, destination);
             log.info("Screenshot saved successfully to: {}", destination.getAbsolutePath());
         } catch (IOException e) {

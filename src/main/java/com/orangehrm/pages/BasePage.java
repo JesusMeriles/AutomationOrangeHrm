@@ -4,6 +4,7 @@ import com.orangehrm.utils.ConfigReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -40,6 +41,47 @@ public abstract class BasePage {
         WebElement element = waitForVisibility(locator);
         element.clear();
         element.sendKeys(text);
+    }
+
+    /**
+     * Clears an input using keyboard shortcuts (CTRL+A, Backspace) and types the new text.
+     * Useful for reactive framework inputs (like Vue.js in OrangeHRM) where element.clear()
+     * might not trigger the value-change event.
+     */
+    protected void clearAndSendKeys(By locator, String text) {
+        log.info("Clearing with keyboard and entering text into element: {}", locator);
+        WebElement element = waitForVisibility(locator);
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+        element.sendKeys(text);
+    }
+
+    /**
+     * Retrieves the 'value' attribute of an input field.
+     */
+    protected String getValue(By locator) {
+        String value = waitForVisibility(locator).getAttribute("value");
+        log.info("Retrieved attribute value '{}' from element: {}", value, locator);
+        return value;
+    }
+
+    /**
+     * Waits until the specified element is invisible or detached from the DOM.
+     */
+    protected boolean waitForInvisibility(By locator) {
+        log.debug("Waiting for invisibility of element: {}", locator);
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    /**
+     * Waits for the OrangeHRM loading spinner to disappear.
+     */
+    public void waitForSpinnerToDisappear() {
+        By spinner = By.cssSelector(".oxd-loading-spinner");
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+        } catch (Exception ignored) {
+            // Spinner might not appear if response is immediate
+        }
     }
     protected String getText(By locator) {
         String text = waitForVisibility(locator).getText();

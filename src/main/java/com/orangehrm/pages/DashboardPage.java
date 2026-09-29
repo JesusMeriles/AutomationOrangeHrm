@@ -10,6 +10,7 @@ public class DashboardPage extends BasePage {
     private final By logoutLink = By.xpath("//a[contains(@href, 'logout')]");
     private final By sideMenuItems = By.cssSelector(".oxd-main-menu-item");
     private final By dashboardWidget = By.cssSelector(".orangehrm-dashboard-widget");
+    private final By pimMenuItem = By.xpath("//a[contains(@href, 'viewPimModule')]");
 
     public DashboardPage(WebDriver driver) {
         super(driver);
@@ -45,5 +46,17 @@ public class DashboardPage extends BasePage {
     public boolean isWidgetDisplayed() {
 
         return isDisplayed(dashboardWidget);
+    }
+
+    /**
+     * Navigates to the PIM module via side menu.
+     *
+     * @return PimPage instance
+     */
+    public PimPage goToPimModule() {
+        log.info("Navigating to PIM module via side menu");
+        click(pimMenuItem);
+        waitForSpinnerToDisappear();
+        return new PimPage(driver);
     }
 }

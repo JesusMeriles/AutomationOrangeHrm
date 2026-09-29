@@ -10,6 +10,7 @@
         <classes>
             <class name="com.orangehrm.tests.LoginTest"/>
             <class name="com.orangehrm.tests.DashboardTest"/>
+            <class name="com.orangehrm.tests.PimTest"/>
         </classes>
     </test>
 
