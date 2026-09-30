@@ -28,13 +28,29 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    protected WebElement waitForPresence(By locator) {
+        log.debug("Waiting for presence of element: {}", locator);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
     protected WebElement waitForClickable(By locator) {
         log.debug("Waiting for element to be clickable: {}", locator);
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
+
     protected void click(By locator) {
         log.info("Clicking on element: {}", locator);
         waitForClickable(locator).click();
+    }
+
+    /**
+     * Uploads a file to an <input type="file"> element using its presence in DOM.
+     * Does not require element visibility since file inputs are often styled/hidden.
+     */
+    protected void uploadFile(By locator, String absoluteFilePath) {
+        log.info("Uploading file '{}' to locator: {}", absoluteFilePath, locator);
+        WebElement fileInput = waitForPresence(locator);
+        fileInput.sendKeys(absoluteFilePath);
     }
     protected void sendKeys(By locator, String text) {
         log.info("Entering text into element: {}", locator);

@@ -37,7 +37,9 @@ d:/Proyecto modulo3/
 │   │   │       └── PimPage.java              # Page Object: módulo PIM (Add Employee y Employee List)
 │   │   └── resources/
 │   │       ├── config.properties             # Configuración base (URL, navegador, credenciales)
-│   │       └── log4j2.xml                    # Configuración de logs con colores y archivo
+│   │       ├── log4j2.xml                    # Configuración de logs con colores y archivo
+│   │       └── images/
+│   │           └── employee-photo.jpg        # Foto de perfil para pruebas de carga de empleado
 │   └── test/
 │       ├── java/com/orangehrm/
 │       │   ├── listeners/
@@ -46,7 +48,7 @@ d:/Proyecto modulo3/
 │       │       ├── BaseTest.java             # Ganchos de configuración y cierre de sesión
 │       │       ├── LoginTest.java            # Casos de prueba de Login
 │       │       ├── DashboardTest.java        # Casos de prueba de Dashboard
-│       │       └── PimTest.java              # Casos de prueba del módulo PIM
+│       │       └── PimTest.java              # Casos de prueba del módulo PIM (Data-driven y Negativos)
 ```
 
 ---
@@ -68,24 +70,21 @@ Todos los casos de prueba del proyecto siguen la nomenclatura formal: `CP-<MODUL
 | **CP-DASH-POS-01** | *Verify key components are displayed on the Dashboard after login* | ✅ Automatizado |
 
 ### 👥 Módulo PIM (Personnel Information Management)
-El módulo PIM permite la gestión de empleados y usuarios. Se ha diseñado una matriz separando los casos positivos automatizados de los casos negativos que forman la base/backlog:
+El módulo PIM permite la gestión de empleados y usuarios. Incluye pruebas basadas en datos (`@DataProvider`), carga de archivos de imagen y validaciones de casos negativos:
 
 ### 🟢 Casos de Prueba Positivos (Automatizados)
 
 | ID | Nombre del Caso | Pasos Principales | Resultado Esperado | Estado |
 | :--- | :--- | :--- | :--- | :--- |
-| **CP-PIM-POS-01** | **Creación básica y verificación en lista** | 1. Ir a PIM -> Add Employee.<br>2. Ingresar First Name, Last Name y Employee Id único.<br>3. Guardar.<br>4. Buscar en Employee List por ID. | El empleado aparece en la lista con su ID y nombre correspondiente. | ✅ Automatizado |
-| **CP-PIM-POS-02** | **Creación con nombre completo** | 1. Ir a Add Employee.<br>2. Llenar First Name, Middle Name y Last Name.<br>3. Guardar.<br>4. Buscar en Employee List. | El empleado se lista correctamente con sus nombres y apellidos. | ✅ Automatizado |
+| **CP-PIM-POS-01** | **Creación con foto y DataProvider (Henry Pym & Janet Van Dyne)** | 1. Ir a PIM -> Add Employee.<br>2. Cargar foto de empleado desde `resources/images`.<br>3. Ingresar datos (Henry Pym / Janet Van Dyne) con ID único.<br>4. Guardar.<br>5. Buscar en Employee List por ID. | El empleado se crea con su foto y se valida su presencia en la lista por ID y nombre. | ✅ Automatizado (x2 iteraciones) |
 
-### 🔴 Casos de Prueba Negativos (Lista Base / Backlog)
+### 🔴 Casos de Prueba Negativos (Automatizados y Backlog)
 
-Casos documentados para futuras etapas de automatización:
-
-1. **CP-PIM-NEG-01:** Campo *First Name* requerido (validar mensaje *"Required"* al dejarlo vacío).
-2. **CP-PIM-NEG-02:** Campo *Last Name* requerido (validar mensaje *"Required"* al dejarlo vacío).
-3. **CP-PIM-NEG-03:** *Employee Id* duplicado (validar mensaje *"Employee Id already exists"* al usar un ID existente).
-4. **CP-PIM-NEG-04:** Formato o tamaño de foto inválido (cargar archivo .txt o que exceda 1MB en la foto de perfil).
-
+| ID | Nombre del Caso | Pasos Principales | Resultado Esperado | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| **CP-PIM-NEG-01** | **Campo First Name requerido** | 1. Ir a Add Employee.<br>2. Dejar First Name vacío e ingresar Last Name.<br>3. Hacer clic en Save. | Mensaje de validación *"Required"* visible bajo el campo First Name. | ✅ Automatizado |
+| **CP-PIM-NEG-02** | **Campo Last Name requerido** | 1. Ir a Add Employee.<br>2. Dejar Last Name vacío e ingresar First Name.<br>3. Hacer clic en Save. | Mensaje de validación *"Required"* visible bajo el campo Last Name. | ✅ Automatizado |
+| **CP-PIM-NEG-03** | **Employee Id duplicado** | 1. Obtener un ID existente.<br>2. Intentar registrar un nuevo empleado con dicho ID.<br>3. Hacer clic en Save. | Mensaje de validación *"Employee Id already exists"* bajo el campo Employee Id. | ✅ Automatizado |
 ---
 
 ## ⚙️ Configuración (`src/main/resources/config.properties`)
